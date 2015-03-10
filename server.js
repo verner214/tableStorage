@@ -15,7 +15,7 @@ http.createServer(function(req, res) {
 */
 console.log(process.env.LARSEEE);
 
-var tableSvc = azure.createTableService();
+var tableSvc = azure.createTableService('portalvhdsgfh152bhy290k', 'blSI3p0IIYZJkojYyc27+5Jm82TmjaYbjEthG+f8fTT615DVeBJ2MMc3gNPyW5dSRaPpeWa2cJ/NE7ypqWTvkw==');
 
 tableSvc.createTableIfNotExists('mytable', function (error, result, response) {
     if (!error) {
@@ -35,5 +35,8 @@ tableSvc.insertEntity('mytable', task, function (error, result, response) {
     if (!error) {
         console.log("entity inserted");
     }
+	else {
+        console.log(error);
+	}
 });
 
