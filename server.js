@@ -1,20 +1,21 @@
 //sätt först environmentvariabler. kan göras med pluginnen 
+//detta är länken till storage https://portalvhdsgfh152bhy290k.blob.core.windows.net/ 
 //c:\>set AZURE_STORAGE_ACCOUNT=portalvhdsgfh152bhy290k
 //c:\>set AZURE_STORAGE_ACCESS_KEY=blSI3p0IIYZJkojYyc27+5Jm82TmjaYbjEthG+f8fTT615DVeBJ2MMc3gNPyW5dSRaPpeWa2cJ/NE7ypqWTvkw==
 
-
-
 var azure = require('azure-storage');
 var http = require('http')
-/*
+
 var port = process.env.PORT || 1337;
 http.createServer(function(req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.end('Hello World, table storage\n');
 }).listen(port);
-*/
-console.log(process.env.LARSEEE);
 
+//console.log(process.env.LARSEEE);
+//res.send({ Grrr: error });
+
+/*
 var tableSvc = azure.createTableService('portalvhdsgfh152bhy290k', 'blSI3p0IIYZJkojYyc27+5Jm82TmjaYbjEthG+f8fTT615DVeBJ2MMc3gNPyW5dSRaPpeWa2cJ/NE7ypqWTvkw==');
 
 tableSvc.createTableIfNotExists('mytable', function (error, result, response) {
@@ -39,4 +40,5 @@ tableSvc.insertEntity('mytable', task, function (error, result, response) {
         console.log(error);
 	}
 });
+*/
 
