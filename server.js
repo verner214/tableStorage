@@ -7,6 +7,8 @@
 var azure = require('azure-storage');
 var http = require('http')
 
+var rowid = 0;
+
 var port = process.env.PORT || 1337;
 http.createServer(function(req, res) {
     var tableSvc = azure.createTableService('portalvhdsgfh152bhy290k', 'blSI3p0IIYZJkojYyc27+5Jm82TmjaYbjEthG+f8fTT615DVeBJ2MMc3gNPyW5dSRaPpeWa2cJ/NE7ypqWTvkw==');
@@ -25,21 +27,23 @@ http.createServer(function(req, res) {
          });
          */
 
-    var tq = azure.TableQuery;
-    console.log(tq);
 
+//visa rad med nyckel '1'
     tableSvc.retrieveEntity('mytable', 'hometasks', '1', function (error, result, response) {
         if (!error) {
+            console.log('första raden ?');
             console.log(result);
         }
     });
 
+//visa fler rader
     var query = new azure.TableQuery()
       .top(5)
       .where('PartitionKey eq ?', 'hometasks');
 
     tableSvc.queryEntities('mytable', query, null, function (error, result, response) {
         if (!error) {
+            console.log('flera rader');
             console.log(result);
         }
     });
@@ -47,28 +51,29 @@ http.createServer(function(req, res) {
 	tableSvc.createTableIfNotExists('mytable', function (error, result, response) {
 		if (!error) {
 			console.log("Table exists or created1");
-		}
-	});
 
-	var entGen = azure.TableUtilities.entityGenerator;
-	var task = {
-		PartitionKey: entGen.String('hometasks'),
-		RowKey: entGen.String('1'),
-		description: entGen.String('take out the trash'),
-		dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
-	};
+	        var entGen = azure.TableUtilities.entityGenerator;
+	        var task = {
+		        PartitionKey: entGen.String('hometasks'),
+		        RowKey: entGen.String((rowid++).toString()),
+		        description: entGen.String('take out the trash'),
+		        dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
+	        };
 
-	tableSvc.insertEntity('mytable', task, function (error, result, response) {
-		if (!error) {
-			console.log("entity inserted");
+	        tableSvc.insertEntity('mytable', task, function (error, result, response) {
+		        if (!error) {
+			        console.log("entity inserted");
+		        }
+		        else {
+		            console.log(error);
+                }
+	        });
 		}
-		else {
-		    console.log(error);
-        }
 	});
 
 	res.writeHead(200, { 'Content-Type': 'text/plain' });
 	res.end('Hello World, har sparat i tebell gick bra.\n');
+
 }).listen(port);
 
 //console.log(process.env.LARSEEE);
