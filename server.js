@@ -29,7 +29,8 @@ http.createServer(function(req, res) {
 			console.log("entity inserted");
 		}
 		else {
-			res.end({grr : error});
+		    console.log({ grr: error });
+		    //res.end({ grr: error });
 		}
 	});
 	res.writeHead(200, { 'Content-Type': 'text/plain' });
