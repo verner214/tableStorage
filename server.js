@@ -63,7 +63,6 @@ http.createServer(function(req, res) {
 			console.log("entity inserted");
 		}
 		else {
-		    console.log("entity inserted");
 		    console.log(error);
         }
 	});
